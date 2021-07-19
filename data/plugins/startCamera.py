@@ -12,6 +12,7 @@ class Worker(Plugin.Plugin):
 
     def run(self):
         LOG.info("PROVO AD AVVIARE")
-        subprocess.call(['python3', '/var/lib/iotronic/plugins/39251657-ad3d-4dad-ab92-fda00deeb461/39251657-ad3d-4dad-ab92-fda00deeb461.py'])
-        LOG.info("OK ") 
+        path = '/var/lib/iotronic/plugins/{}/{}.py'.format(str(self.params['plugin_id']), str(self.params['plugin_id']))
+        subprocess.call(['python3', path])
+        LOG.info("OK") 
         self.q_result.put("AVVIATO!")

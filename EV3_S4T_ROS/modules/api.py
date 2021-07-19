@@ -52,15 +52,13 @@ def postPlugin(token, path, name, callable, public, parameters):
         token = getToken()
     url = ip + ':8812/v1/plugins'
     headers = {'Content-Type' : 'application/json', 'X-Auth-Token' : token.headers["X-Subject-Token"]}
-    #prova = open(path, 'r')
-    #print(prova.read().replace('\n', ''))+
     file = open(path, 'r').read()
     data_set = {
         "code": file,
         "name": name,
         "callable": callable,
         "public": public,
-        "parameters": {}
+        "parameters": parameters
         }
     json_dump = json.dumps(data_set)
     r = requests.post(url, data=json_dump, headers=headers)
@@ -78,4 +76,19 @@ def injectPlugin(token, board_name, plugin_name, onboot):
         }
     json_dump = json.dumps(data_set)
     r = requests.put(url, data=json_dump, headers=headers)  
+    return r
+
+def executePlugin(token, board_name, plugin_name, parameters):
+    expires_at = token.json()['token']['expires_at']
+    if token=="" or check_expiration(expires_at):
+        token = getToken()
+    url = ip + ':8812/v1/boards/{}/plugins/{}'.format(board_name, plugin_name)
+    headers = {'Content-Type' : 'application/json', 'X-Auth-Token' : token.headers["X-Subject-Token"]}
+    data_set = {
+        "action": "PluginCall",
+        "parameters": parameters
+        }
+    json_dump = json.dumps(data_set)
+    print(json_dump)
+    r = requests.post(url, data=json_dump, headers=headers)
     return r          
