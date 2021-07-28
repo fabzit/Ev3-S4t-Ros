@@ -1,0 +1,22 @@
+
+curl -fsSL -o- https://bootstrap.pypa.io/pip/3.5/get-pip.py | python3.5 #utilissimo per installare s4t su ubiquity
+
+
+1 - Inserire "root" all'avvio collegando una tastiera alla presa usb laterale
+2 - scrivere "gadget_on" e premere invio
+3 - Collegare usb superiore con device
+4 - sul device ubuntu nel mio caso scrivere 
+    "nmcli c" e guardare il nome della connessione appena stabilita (quella in giallo)
+    nel mio caso è "Wired connection 1"
+5 - sempre nel prompt digitare "nmcli con mod 'Wired connection 1' ipv4.address 192.168.10.100/24 ipv4.method manual"
+6 - "nmcli con reload"
+7 - 
+
+docker system prune -a #serve a cancellare i container falliti
+rm /var/lib/docker/network/files/local-kv.db rimuvere in caso di già utilizzato
+
+export ROS_MASTER_URI=http://192.168.10.101:11311
+export ROS_HOSTNAME=192.168.10.101
+export ROS_IP=192.168.10.101
+
+docker exec -it master /bin/bash per entrare dentro il container che fa da master

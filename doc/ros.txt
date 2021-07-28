@@ -1,0 +1,30 @@
+ros@master:/$ rosnode list
+/ev3dev/Ev3ControlNode
+/ev3dev/cmd_vel_relay
+/ev3dev/controller_spawner
+/ev3dev/ev3_sensor_spawner
+/ev3dev/odom_relay
+/rosout
+/teleop_twist_keyboard
+ros@master:/$ rostopic list
+/cmd_vel
+/ev3dev/OutPortA/command
+/ev3dev/diffDrv/cmd_vel
+/ev3dev/diffDrv/odom
+/ev3dev/joint_states
+/ir
+/odom
+/rosout
+/rosout_agg
+/tf
+ros@master:/$ rostopic info cmd_vel
+Type: geometry_msgs/Twist
+
+Publishers:
+ * /teleop_twist_keyboard (http://robot:42757/)
+
+Subscribers:
+ * /ev3dev/cmd_vel_relay (http://robot:40175/)
+
+
+ros@master:/$ rqt_graph

@@ -10,24 +10,24 @@ def getToken():
     t = requests.post(url, data=open('data/auth.json', 'rb'), headers=headers)
     return t
 
-def check_expiration(expires_at):
+'''def check_expiration(expires_at):
     current_date = datetime.now()
     expires_at = datetime.fromisoformat(expires_at[:-1]) #Levo la Z
-    return current_date < expires_at #True=valida False=scaduta 
+    return current_date < expires_at #True=valida False=scaduta '''
 
 def getBoards(token):
-    expires_at = token.json()['token']['expires_at']
+    '''expires_at = token.json()['token']['expires_at']
     if token=="" or check_expiration(expires_at):
-        token = getToken()
+        token = getToken()'''
     url = ip + ':8812/v1/boards/'
     headers = {'Content-Type' : 'application/json','X-Auth-Token' : token.headers["X-Subject-Token"]}
     r = requests.get(url, headers=headers)
     return r
 
 def getDetailsFromBoard(token, boardID):
-    expires_at = token.json()['token']['expires_at']
+    '''expires_at = token.json()['token']['expires_at']
     if token=="" or check_expiration(expires_at):
-        token = getToken()
+        token = getToken()'''
     url = ip + ':8812/v1/boards/'+boardID
     headers = {'X-Auth-Token' : token.headers["X-Subject-Token"]}
     r = requests.get(url, headers=headers)
@@ -47,9 +47,9 @@ def searchBoard(token, boards, board_name):
         print("Non è stato trovato nessun: ", board_name)
 
 def postPlugin(token, path, name, callable, public, parameters):
-    expires_at = token.json()['token']['expires_at']
+    '''expires_at = token.json()['token']['expires_at']
     if token=="" or check_expiration(expires_at):
-        token = getToken()
+        token = getToken()'''
     url = ip + ':8812/v1/plugins'
     headers = {'Content-Type' : 'application/json', 'X-Auth-Token' : token.headers["X-Subject-Token"]}
     file = open(path, 'r').read()
@@ -65,9 +65,9 @@ def postPlugin(token, path, name, callable, public, parameters):
     return r
 
 def injectPlugin(token, board_name, plugin_name, onboot):
-    expires_at = token.json()['token']['expires_at']
+    '''expires_at = token.json()['token']['expires_at']
     if token=="" or check_expiration(expires_at):
-        token = getToken()
+        token = getToken()'''
     url = ip + ':8812/v1/boards/{}/plugins'.format(board_name)
     headers = {'Content-Type' : 'application/json', 'X-Auth-Token' : token.headers["X-Subject-Token"]}
     data_set = {
@@ -79,9 +79,9 @@ def injectPlugin(token, board_name, plugin_name, onboot):
     return r
 
 def executePlugin(token, board_name, plugin_name, parameters):
-    expires_at = token.json()['token']['expires_at']
+    '''expires_at = token.json()['token']['expires_at']
     if token=="" or check_expiration(expires_at):
-        token = getToken()
+        token = getToken()'''
     url = ip + ':8812/v1/boards/{}/plugins/{}'.format(board_name, plugin_name)
     headers = {'Content-Type' : 'application/json', 'X-Auth-Token' : token.headers["X-Subject-Token"]}
     data_set = {
